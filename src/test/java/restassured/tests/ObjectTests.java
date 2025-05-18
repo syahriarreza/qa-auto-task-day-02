@@ -46,7 +46,7 @@ public class ObjectTests extends BaseTest {
 
         System.out.println("Response testAddObject: " + response.getBody().asString());
 
-        objectID = response.jsonPath().getString("id");
+        objectID = response.jsonPath().getList("id").get(0).toString();
         System.out.println("@@@@@@@@@@@@@@ objectID: " + objectID);
     }
 
@@ -58,6 +58,8 @@ public class ObjectTests extends BaseTest {
                 .get("/webhook/api/objects");
 
         assertEquals(response.statusCode(), 200);
+
+        System.out.println("Response testGetListAllObjects: " + response.getBody().asString());
         Object responseBody = response.jsonPath().get();
         assertTrue(responseBody instanceof java.util.List, "Response should be an array");
     }
@@ -72,7 +74,8 @@ public class ObjectTests extends BaseTest {
         assertEquals(response.statusCode(), 200);
 
         System.out.println("Response testSingleObject: " + response.getBody().asString());
-
+        System.out.println(
+                "Response testSingleObject URL: /webhook/8749129e-f5f7-4ae6-9b03-93be7252443c/api/objects/" + objectID);
         String id = response.jsonPath().getString("id");
         assertNotNull(id, "Response should contain an id field");
     }
@@ -86,22 +89,22 @@ public class ObjectTests extends BaseTest {
 
         assertEquals(response.statusCode(), 200);
         Object responseBody = response.jsonPath().get();
-        assertTrue(responseBody instanceof java.util.List, "Response should be an array");
+        assertTrue(responseBody instanceof java.util.List, "Response should be anarray");
     }
 
     @Test
     public void testUpdateObject() {
         String body = "{\n" +
-                "  \"name\": \"Apple MacBook Pro 16\",\n" +
-                "  \"data\": {\n" +
-                "    \"year\": 2019,\n" +
-                "    \"price\": 1849.99,\n" +
-                "    \"cpu_model\": \"Intel Core i9\",\n" +
-                "    \"hard_disk_size\": \"1 TB\",\n" +
-                "    \"capacity\": \"2 cpu\",\n" +
-                "    \"screen_size\": \"14 Inch\",\n" +
-                "    \"color\": \"red\"\n" +
-                "  }\n" +
+                " \"name\": \"Apple MacBook Pro 16\",\n" +
+                " \"data\": {\n" +
+                " \"year\": 2019,\n" +
+                " \"price\": 1849.99,\n" +
+                " \"cpu_model\": \"Intel Core i9\",\n" +
+                " \"hard_disk_size\": \"1 TB\",\n" +
+                " \"capacity\": \"2 cpu\",\n" +
+                " \"screen_size\": \"14 Inch\",\n" +
+                " \"color\": \"red\"\n" +
+                " }\n" +
                 "}";
 
         Response response = given()
@@ -109,7 +112,8 @@ public class ObjectTests extends BaseTest {
                 .header("Authorization", "Bearer " + token)
                 .body(body)
                 .when()
-                .put("/webhook/37777abe-a5ef-4570-a383-c99b5f5f7906/api/objects/" + objectID);
+                .put("/webhook/37777abe-a5ef-4570-a383-c99b5f5f7906/api/objects/" +
+                        objectID);
 
         assertEquals(response.statusCode(), 200);
         String id = response.jsonPath().getString("id");
@@ -119,8 +123,8 @@ public class ObjectTests extends BaseTest {
     @Test
     public void testPartiallyUpdateObject() {
         String body = "{\n" +
-                "  \"name\": \"Apple MacBook Pro 1611-albert12\",\n" +
-                "  \"year\": \"2030\"\n" +
+                " \"name\": \"Apple MacBook Pro 1611-albert12\",\n" +
+                " \"year\": \"2030\"\n" +
                 "}";
 
         Response response = given()
@@ -128,11 +132,13 @@ public class ObjectTests extends BaseTest {
                 .header("Authorization", "Bearer " + token)
                 .body(body)
                 .when()
-                .patch("/webhook/39a0f904-b0f2-4428-80a3-391cea5d7d04/api/object/" + objectID);
+                .patch("/webhook/39a0f904-b0f2-4428-80a3-391cea5d7d04/api/object/" +
+                        objectID);
 
         assertEquals(response.statusCode(), 200);
 
-        System.out.println("Response testPartiallyUpdateObject: " + response.getBody().asString());
+        System.out.println("Response testPartiallyUpdateObject: " +
+                response.getBody().asString());
 
         String id = response.jsonPath().getString("id");
         assertNotNull(id, "Response should contain an id field");
@@ -143,10 +149,12 @@ public class ObjectTests extends BaseTest {
         Response response = given()
                 .header("Authorization", "Bearer " + token)
                 .when()
-                .delete("/webhook/d79a30ed-1066-48b6-83f5-556120afc46f/api/objects/" + objectID);
+                .delete("/webhook/d79a30ed-1066-48b6-83f5-556120afc46f/api/objects/" +
+                        objectID);
         assertEquals(response.statusCode(), 200);
 
-        System.out.println("Response testDeleteObject: " + response.getBody().asString());
+        System.out.println("Response testDeleteObject: " +
+                response.getBody().asString());
         String status = response.jsonPath().getString("status");
         assertEquals(status, "deleted", "Status should be 'deleted'");
     }

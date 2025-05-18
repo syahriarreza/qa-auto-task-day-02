@@ -16,7 +16,7 @@ public class UserTests extends BaseTest {
                 "  \"email\": \"albertsimanjuntak12@gmail.com\",\n" +
                 "  \"full_name\": \"Albert Simanjuntak\",\n" +
                 "  \"password\": \"@dmin123\",\n" +
-                "  \"department\": \"manager\",\n" +
+                "  \"department\": \"Technology\",\n" +
                 "  \"phone_number\": \"082264189134\"\n" +
                 "}";
 
