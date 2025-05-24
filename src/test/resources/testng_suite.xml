@@ -5,6 +5,8 @@
             <class name="restassured.tests.UserTests" />
             <class name="restassured.tests.DepartmentTests" />
             <class name="restassured.tests.ObjectTests" />
+            <class name="scenario.tests.ObjectFlowE2ETest" />
+            <class name="scenario.tests.RegisterAndLoginE2ETest" />
         </classes>
     </test>
 </suite>

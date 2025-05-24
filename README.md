@@ -14,7 +14,11 @@ This repository contains automated API tests for the WhiteSmokeHouse API using R
 │       │       └── tests
 │       │           ├── DepartmentTests.java
 │       │           ├── ObjectTests.java
-│       │           └── UserTests.java
+│       │           ├── UserTests.java
+│       │           └── scenario
+│       │               └── tests
+│       │                   ├── ObjectFlowE2ETest.java
+│       │                   └── RegisterAndLoginE2ETest.java
 │       └── resources
 │           └── testng_suite.xml
 └── pom.xml
@@ -30,21 +34,21 @@ This repository contains automated API tests for the WhiteSmokeHouse API using R
 
 1. Clone the repository:
 
-```bash
-git clone https://github.com/syahriarreza/qa-auto-task-day-02.git
-```
+    ```bash
+    git clone https://github.com/syahriarreza/qa-auto-task-day-02.git
+    ```
 
 2. Navigate to the project directory:
 
-```bash
-cd qa-auto-task-day-02
-```
+    ```bash
+    cd qa-auto-task-day-02
+    ```
 
 3. Install dependencies:
 
-```bash
-mvn clean install -DskipTests
-```
+    ```bash
+    mvn clean install -DskipTests
+    ```
 
 ## Running the Tests
 
@@ -72,6 +76,14 @@ mvn test -Dtest=DepartmentTests
 mvn test -Dtest=ObjectTests
 ```
 
+### Run End-to-End Tests
+
+To run all End-to-End tests:
+
+```bash
+mvn test -Dtest=ObjectFlowE2ETest,RegisterAndLoginE2ETest
+```
+
 ## Test Suite Overview
 
 The test suite is configured in `src/test/resources/testng_suite.xml` and includes the following test classes:
@@ -79,6 +91,8 @@ The test suite is configured in `src/test/resources/testng_suite.xml` and includ
 1. **UserTests**: Tests user registration functionality
 2. **DepartmentTests**: Tests department API endpoints
 3. **ObjectTests**: Tests object CRUD operations (Create, Read, Update, Delete)
+4. **ObjectFlowE2ETest**: Tests the complete flow of adding, updating, and deleting an object
+5. **RegisterAndLoginE2ETest**: Tests the user registration and login process
 
 ## Authentication
 
@@ -102,6 +116,10 @@ The tests use token-based authentication. The base test class (`BaseTest.java`) 
 - `testUpdateObject`: Tests updating an object
 - `testPartiallyUpdateObject`: Tests partial update of an object
 - `testDeleteObject`: Tests deleting an object (runs as cleanup)
+
+### End-to-End Tests
+- **ObjectFlowE2ETest**: This test covers the entire lifecycle of an object, including creation, update, and deletion. It ensures that all operations can be performed in sequence without errors.
+- **RegisterAndLoginE2ETest**: This test verifies the user registration and login process, ensuring that a user can successfully register and log in to the system.
 
 ## Dependencies
 
